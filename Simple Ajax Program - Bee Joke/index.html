@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Ajax Joke of the Day Application</title>
+
+    <script language="javascript" type="text/javascript">
+      var Request = false;
+
+      if (window.XMLHttpRequest) {
+        Request = new XMLHttpRequest();
+      } else if (window.ActiveXObject) {
+        Request = new ActiveXObject("Microsoft.XMLHTTP");
+      }
+
+      function retrieveJoke(url, elementID) {
+        if (Request) {
+          var RequestObj = document.getElementById(elementID);
+
+          Request.open("GET", url);
+
+          Request.onreadystatechange = function () {
+            if (Request.readyState == 4 && Request.status == 200) {
+              RequestObj.innerHTML = Request.responseText;
+            }
+          };
+
+          Request.send(null);
+        }
+      }
+    </script>
+  </head>
+
+  <body>
+    <h1>Where do bees go when they get married?</h1>
+
+    <form>
+      <input
+        type="button"
+        value="Fetch Answer"
+        onclick="retrieveJoke('sample.txt', 'DivTarget')"
+      />
+    </form>
+
+    <div id="DivTarget"></div>
+  </body>
+</html>
